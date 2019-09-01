@@ -27,6 +27,13 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+XML_URL = ""
+M3U_URL = ""
+MATCH_SERIES = False
+
+SITE_URL = 'http://localhost:8000'
+MEDIA_URL = '/channel_logos/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'channel_logos')
 
 # Application definition
 
