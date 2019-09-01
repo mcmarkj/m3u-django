@@ -1,0 +1,15 @@
+STATIC_URL = '/static/'
+
+XML_URL = ""
+M3U_URL = ""
+SITE_URL = ''
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'HOST': 'db',
+        'PORT': 5432,
+    }
+}
