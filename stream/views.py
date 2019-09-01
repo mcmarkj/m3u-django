@@ -71,7 +71,7 @@ def epg(request):
 
             #Formatting for each line
             line1 = '<channel id="{tvg_id}">'.format(tvg_id=channel.tvg_id)
-            line2 = '<display-name>{channel_name}</display-name>'.format(channel_name=channel.channel_name)
+            line2 = '<display-name>{channel_name}</display-name>'.format(channel_name=bleach.clean(channel.channel_name))
             line3 = '<icon src="{channel_logo}"></icon>'.format(channel_logo=LOGO_URL)
             line4 = '<lcn>{epg_id}</lcn>'.format(epg_id=channel.epg_id)
             line5 = '</channel>'
