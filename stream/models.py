@@ -15,14 +15,6 @@ class Channel(models.Model):
     channel_logo_url = models.URLField(null=True)
     channel_enabled = models.BooleanField()
 
-def get_remote_image(self):
-    if self.channel_logo_url and not self.channel_logo:
-        img_temp = NamedTemporaryFile(delete=True)
-        img_temp.write(urlopen(self.channel_logo_url).read())
-        img_temp.flush()
-        self.channel_logo.save(f"image_{self.pk}", File(img_temp))
-    self.save()
-
 class Programmes(models.Model):
     Start = models.CharField(max_length=400)
     Stop = models.CharField(max_length=400)

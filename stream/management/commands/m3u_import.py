@@ -5,7 +5,6 @@ from stream.models import Channel
 from urllib.request import urlopen
 from django.conf import settings
 import re
-import requests
 from django.core.files import File
 from django.core.files.temp import NamedTemporaryFile
 
