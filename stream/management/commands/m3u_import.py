@@ -9,15 +9,23 @@ from django.core.files import File
 from django.core.files.temp import NamedTemporaryFile
 
 def insert_link(num, id,logo,group,channel_name, link):
+
+	if check_exists(id,link) == None:
+		try:
+			print ("[*]Inserting "+channel_name+" in to database[*]")
+			c = Channel(tvg_id=id, epg_id=num, channel_logo_url=logo, channel_group=group, channel_name=channel_name, channel_url=link, channel_enabled=False)
+			c.save()
+		except Exception as e:
+			raise e
+
+def check_exists(id, link):
 	try:
-		print ("[*]Inserting "+channel_name+" in to database[*]")
+		search_channel = Channel.objects.get(tvg_id=id, channel_url=link)
+		print ("[*]Channel "+id+" already in database[*]")
+	except Channel.DoesNotExist:
+		search_channel = None
 
-		c = Channel(tvg_id=id, epg_id=num, channel_logo_url=logo, channel_group=group, channel_name=channel_name, channel_url=link, channel_enabled=False)
-
-		c.save()
-
-	except Exception as e:
-		raise e
+	return search_channel
 
 class Command(BaseCommand):
 	help = 'Imports m3u files into the DB'
@@ -25,7 +33,7 @@ class Command(BaseCommand):
 		print("Update M3U URL in config pls")
 	def handle(self, *args, **options):
 		try:
-			Channel.objects.all().delete()
+			#Channel.objects.all().delete()
 			filename = settings.M3U_URL
 			ChannelNum = 0
 
@@ -47,7 +55,7 @@ class Command(BaseCommand):
 					header_pattern = re.compile("^(#EXTM3U)+$")
 					if not header_pattern.match(line1):
 						#print(line1)
-						line1r = re.search(r'^#EXTINF:-1 tvg-id="(.*)" tvg-name="(.*)" tvg-logo="(.*)" group-title="(UK.*)",(.*)$', line1)
+						line1r = re.search(r'^#EXTINF:-1 tvg-id="(.*)" tvg-name="(.*)" tvg-logo="(.*)" group-title="(UK.*|USA.*)",(.*)$', line1)
 						line2r = re.search(r'^(https?:\/\/.*)$', line2)
 
 						if line1r:

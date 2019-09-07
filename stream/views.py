@@ -36,7 +36,9 @@ def m3u(request):
             else:
                 LOGO_URL = channel.channel_logo_url
 
-            line = ' tvg-id="{tvg_id}" epg-id="{epg_id}" tvg-name="{tvg_name}" tvg-logo="{tvg_logo}" group-title="{group_title}",{channel_name}'.format(tvg_id=channel.tvg_id,base_url=settings.SITE_URL, tvg_name=channel.channel_name, tvg_logo=LOGO_URL, epg_id=channel.epg_id, group_title=channel.channel_group, channel_name=channel.channel_name)
+            cleaned_Channel = channel.channel_name.strip(":")
+
+            line = ' tvg-id="{tvg_id}" epg-id="{epg_id}" tvg-name="{tvg_name}" tvg-logo="{tvg_logo}" group-title="{group_title}",{channel_name}'.format(tvg_id=channel.tvg_id,base_url=settings.SITE_URL, tvg_name=cleaned_Channel, tvg_logo=LOGO_URL, epg_id=channel.epg_id, group_title=channel.channel_group, channel_name=channel.channel_name)
             url = channel.channel_url
             #Construct the string
             output.append(M3U_LINE_START+line+M3U_LINE_BREAK+url)
@@ -69,9 +71,10 @@ def epg(request):
             else:
                 LOGO_URL = channel.channel_logo_url
 
+            cleaned_Channel = channel.channel_name.strip(":")
             #Formatting for each line
             line1 = '<channel id="{tvg_id}">'.format(tvg_id=channel.tvg_id)
-            line2 = '<display-name>{channel_name}</display-name>'.format(channel_name=bleach.clean(channel.channel_name))
+            line2 = '<display-name>{channel_name}</display-name>'.format(channel_name=bleach.clean(cleaned_Channel))
             line3 = '<icon src="{channel_logo}"></icon>'.format(channel_logo=LOGO_URL)
             line4 = '<lcn>{epg_id}</lcn>'.format(epg_id=channel.epg_id)
             line5 = '</channel>'
