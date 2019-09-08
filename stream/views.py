@@ -36,7 +36,7 @@ def m3u(request):
             else:
                 LOGO_URL = channel.channel_logo_url
 
-            cleaned_Channel = channel.channel_name.strip(":")
+            cleaned_Channel = channel.channel_name.strip()
 
             line = ' tvg-id="{tvg_id}" epg-id="{epg_id}" tvg-name="{tvg_name}" tvg-logo="{tvg_logo}" group-title="{group_title}",{channel_name}'.format(tvg_id=channel.tvg_id,base_url=settings.SITE_URL, tvg_name=cleaned_Channel, tvg_logo=LOGO_URL, epg_id=channel.epg_id, group_title=channel.channel_group, channel_name=channel.channel_name)
             url = channel.channel_url
@@ -71,7 +71,7 @@ def epg(request):
             else:
                 LOGO_URL = channel.channel_logo_url
 
-            cleaned_Channel = channel.channel_name.strip(":")
+            cleaned_Channel = channel.channel_name.strip()
             #Formatting for each line
             line1 = '<channel id="{tvg_id}">'.format(tvg_id=channel.tvg_id)
             line2 = '<display-name>{channel_name}</display-name>'.format(channel_name=bleach.clean(cleaned_Channel))
@@ -102,3 +102,4 @@ def epg(request):
     return_output = XML_LINE_BREAK.join(output)
 
     return HttpResponse(return_output, content_type="application/xml")
+
