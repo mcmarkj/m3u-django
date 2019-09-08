@@ -47,10 +47,14 @@ def change_cat_TRAVEL(modeladmin, request, queryset):
     queryset.update(channel_group='TRAVEL')
 change_cat_TRAVEL.short_description = "Change Category to Travel"
 
+def change_cat_SPORTS(modeladmin, request, queryset):
+    queryset.update(channel_group='SPORTS')
+change_cat_SPORTS.short_description = "Change Category to Sports"
+
 class ChannelAdmin(admin.ModelAdmin):
     list_display = ('epg_id', 'channel_name','channel_group','channel_enabled')
     ordering = ('epg_id', 'id')
-    actions = [enable_channel, disable_channel,change_cat_ENTERTAINMENT,change_cat_COMEDY,change_cat_DRAMA,change_cat_MOVIES,change_cat_MUSIC,change_cat_NEWS,change_cat_SPORTS,change_cat_TRAVEL]
+    actions = [enable_channel, disable_channel,change_cat_ENTERTAINMENT,change_cat_COMEDY,change_cat_DRAMA,change_cat_MOVIES,change_cat_MUSIC,change_cat_NEWS,change_cat_SPORTS,change_cat_TRAVEL,change_cat_SPORTS]
 
 class ProgrammeAdmin(admin.ModelAdmin):
     list_display = ('Channel', 'Title', 'Start')
@@ -58,4 +62,3 @@ class ProgrammeAdmin(admin.ModelAdmin):
 
 admin.site.register(Channel, ChannelAdmin)
 admin.site.register(Programmes, ProgrammeAdmin)
-
