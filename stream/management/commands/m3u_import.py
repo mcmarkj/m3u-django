@@ -39,7 +39,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         try:
-            Channel.objects.all().delete()
+            #Channel.objects.all().delete()
             filename = settings.M3U_URL
             ChannelNum = 0
 
