@@ -60,9 +60,8 @@ class Command(BaseCommand):
 
                     header_pattern = re.compile("^(#EXTM3U)+$")
                     if not header_pattern.match(line1):
-                        # print(line1)
-                        line1r = re.search(
-                            r'^#EXTINF:-1 tvg-id="(.*)" tvg-name="(.*)" tvg-logo="(.*)" group-title="(UK.*|USA.*)",(.*)$', line1)
+
+                        line1r = re.search(r'^#EXTINF:-1 tvg-id="({tvgid})" tvg-name="({tvgname})" tvg-logo="({tvglogo})" group-title="({group})",(.*)$'.format(tvgid=settings.TVG_ID, tvgname=settings.TVG_NAME, tvglogo=settings.TVG_LOGO, group=settings.GROUP_TITLE), line1)
                         line2r = re.search(r'^(https?:\/\/.*)$', line2)
 
                         if line1r:

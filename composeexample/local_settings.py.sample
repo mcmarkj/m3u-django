@@ -13,3 +13,11 @@ DATABASES = {
         'PORT': 5432,
     }
 }
+
+ALLOWED_HOSTS = ['127.0.0.1']
+
+#REGEX FILTERS
+TVG_ID='.*'
+TVG_NAME='.*'
+TVG_LOGO='.*'
+GROUP_TITLE='UK.*|USA.*'
