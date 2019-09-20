@@ -6,7 +6,7 @@ from tempfile import NamedTemporaryFile
 
 class Channel(models.Model):
     id = models.AutoField(primary_key = True)
-    tvg_id = models.CharField(max_length=200, editable=False, default='')
+    tvg_id = models.CharField(max_length=200, editable=True, default='')
     epg_id= models.BigIntegerField(default=9999)
     channel_group = models.CharField(max_length=200)
     channel_name = models.CharField(max_length=200)
