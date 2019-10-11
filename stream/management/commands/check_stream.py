@@ -47,7 +47,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         try:
-            #Channel.objects.all().delete()
+            Channel.objects.filter(channel_protected=False).delete()
             filename = settings.M3U_URL
             ChannelNum = 0
 

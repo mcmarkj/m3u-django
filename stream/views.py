@@ -73,7 +73,7 @@ def epg(request):
 
             cleaned_Channel = channel.channel_name.strip()
             #Formatting for each line
-            line1 = '<channel id="{tvg_id}">'.format(tvg_id=channel.tvg_id)
+            line1 = '<channel id="{tvg_id}">'.format(tvg_id=bleach.clean(channel.tvg_id))
             line2 = '<display-name>{channel_name}</display-name>'.format(channel_name=bleach.clean(cleaned_Channel))
             line3 = '<icon src="{channel_logo}"></icon>'.format(channel_logo=LOGO_URL)
             line4 = '<lcn>{epg_id}</lcn>'.format(epg_id=channel.epg_id)
@@ -88,7 +88,7 @@ def epg(request):
     if programme_list:
             for programme in programme_list:
                 #Loop through each programme that's been loaded in.
-                pline1 = '<programme start="{start}" stop="{stop}" channel="{tvg_id}">'.format(start=programme.Start, stop=programme.Stop, tvg_id=programme.Channel)
+                pline1 = '<programme start="{start}" stop="{stop}" channel="{tvg_id}">'.format(start=programme.Start, stop=programme.Stop, tvg_id=bleach.clean(programme.Channel))
                 pline2 = '<title>{programme_title}</title>'.format(programme_title=programme.Title)
                 pline3 = '<desc>{programme_desc}</desc>'.format(programme_desc=programme.Description)
                 pline4 = '</programme>'
